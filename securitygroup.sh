@@ -5,7 +5,7 @@ function AddSecurityGroupRule {
     if [[ ${Source} =~ ^sg-* ]]; then
       aws ec2 authorize-security-group-ingress --region ${RegionId} --group-id ${GroupId} --ip-permissions IpProtocol=${Protocol},FromPort=${FromPort},ToPort=${ToPort},UserIdGroupPairs="[{Description=${Description},GroupId=${Source}}]"
       rc=$?
-    elif [[ ${Source} == ^pl-* ]]; then
+    elif [[ ${Source} =~ ^pl-* ]]; then
       aws ec2 authorize-security-group-ingress --region ${RegionId} --group-id ${GroupId} --ip-permissions IpProtocol=${Protocol},FromPort=${FromPort},ToPort=${ToPort},PrefixListIds="[{Description=${Description},PrefixListId=${Source}}]"
       rc=$?
     else
